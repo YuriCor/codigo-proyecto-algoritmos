@@ -48,6 +48,34 @@ public class ProyectoFinalAlgoritmos {
                         informesEstadisticas();
                         break;
                         
+                    case 5: // salida
+                                System.out.printl("CERRANDO PROGRAMA");
+                                break;
+                                
+                }
+        } // cierra menu
+        static void gestionProductos (){ // abre gestion
+            Scanner scan= new Scanner(System.in);
+            int Opcion;
+            System.out.println("1. DEFINICION DE CATEGORIAS");
+            System.out.println("2. DEFINICION DE CARACTERISTICAS");
+            System.out.println("3. DEFINICON DE ESPECIFICACIONES");
+            System.out.println("4. ASIGNACION DE CATEGORIA, CARACTERISTICAS Y ESPECIFICACIONES A PRODUCTOS");
+            System.out.println("5. ALTA DE PRODUCTOS");
+            System.out.println("6. BAJA DE PRODUCTOS");
+            System.out.println("7. MODIFICACION DE PRODUCTOS");
+            System.out.println("8. CONSIDERACIONES ADICIONALES");
+            System.out.println("9. SALIR");
+            System.out.println("SELECCIONE LA OPCION NECESARIA");
+            Opcion= scan.nextInt();
+            System.out.println(Opcion);
+            switch (Opcion){
+                case 1:
+                    definicionCategorias();
+            }
+        }
+                                
+                        
                 }
                 }
     
