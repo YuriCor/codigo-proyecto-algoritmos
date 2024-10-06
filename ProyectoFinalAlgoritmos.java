@@ -8,6 +8,18 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -93,11 +105,19 @@ public class ProyectoFinalAlgoritmos {
 
             switch (Opcion){
                 
-                case 1 -> mostrarCategorias();
-                case 2 -> agregarCategorias();
-                case 3 -> modificarCategorias();
-                case 4 -> eliminarCategorias();
-                case 5 -> {
+                case 1:
+                    mostrarCategorias();
+                    break;
+                case 2:
+                    agregarCategorias();
+                    break;
+                case 3:
+                    modificarCategorias();
+                    break;
+                case 4:
+                    eliminarCategorias();
+                    break;
+                case 5:{
             }
                 default -> throw new AssertionError();
             }
@@ -120,25 +140,82 @@ public class ProyectoFinalAlgoritmos {
             System.out.print("INGRESE LA CATEGORIA NUEVA: ");
             String nombre = scan.nextLine();
             
-            if (nombre.isEmpty()categoriaExiste(nombre)){
-            System.out.println("EL NOMBRE DE LA VATEGORIA NO PUEDE ESTAR VACIO O YA EXISTE. ");
+            if (nombre.isEmpty() || categoriaExiste(nombre)){
+            System.out.println("EL NOMBRE DE LA CATEGORIA NO PUEDE ESTAR VACIO O YA EXISTE. ");
             return;
-        }
-            System.out.print();
-        }
-        }
-            
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(("categorias.txt"),true)){
+                bw.write(nombre + "|" + descripcion);
+                bw.newLine();
+                System.out.println("CATEGORIA AGREGADA EXITOSAMENTE. ");
+            } catch (IOException e) {
+                    System.out.println("ERROR AL ESCRIBIR EN EL ARCHIVO. ");
+                    }
+            } // cierra agregar
+static boolean categoriaExiste(String nombre){ // abre
+                try(BufferedReader br= new BufferedReader(new FileReader(("categorias.txt")))) {
+                String linea;
+                while ((linea = br.readLine()) != null){
+                String[] partes = linea.split(":V");
+                if(partes[0].equals(nombre)){
+                    return true;
+                }
                 
-        
-                    
-                    
-            
-
-                         
+                }
+                
+                } catch (IOException e){
+                System.out.println("ERROR AL LEER EL ARCHIVO. ");
+                
+                } return false;
+            }// cierra
+private static void modificarCategoria (){// abre
+    try {
+                        FileReader fr = new FileReader(f);
+                        BufferedReader br = new BufferedReader(fr);
                         
+                        File fc = new File("archivo_texto_copia.txt");
+                        FileWriter fw = new FileWriter(fc);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        
+                        String linea = "";
+                        
+                        while((linea = br.readLine()) != null) {
+                            String [] datos = linea.split("\\|");
+                            if (datos[0].compareTo("") == 0) {
+                                linea = "";
+                            }
+                            
+                            bw.write(linea+"\n");
+                        } 
+                        
+                        bw.close();
+                        br.close();
+                        
+                        Files.move(fc.toPath(), categoriaExiste.toPath(), REPLACE_EXISTING);
+                     } catch (FileNotFoundException ex) {
+                        Logger.getLogger(ProyectoFinalAlgoritmos.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                    Logger.getLogger(ProyectoFinalAlgoritmos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+}
+            
+        }
+private static void eliminarCategoria(){
+mostrarCategorias();
+Scanner scan = new Scanner (System.in);
+
+System.out.print("INGRESA EL NOMBRE DE LA CATEGORIA A ELIMINAR ");
+String nombre= scan.nextLine();
+if (categoriaExiste(nombre)) {
+System.out.print("LA CATEGORIA NO EXISTE ");
+return;
+}
+}
+            
+        }
+        }
+            
                 
-                
-    
+
         
     
     
