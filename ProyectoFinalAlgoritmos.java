@@ -31,8 +31,9 @@ public class ProyectoFinalAlgoritmos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // Menu General
-        private static void MenuGeneral(){ _// abre el menu
+        MenuGeneral();
+} // Menu General
+        private static void MenuGeneral(){ // abre el menu
                 Scanner scan = new Scanner (System.in);
                 System.out.println("BIENVENIDO AL SISTEMA DE GESTION DE INVENTARIO :V ");
                 
@@ -80,50 +81,54 @@ public class ProyectoFinalAlgoritmos {
             switch (Opcion){
                 case 1: definicionCategorias();
                 break;
-                case 2: definicionCaracteristicas();
+                case 2: //definicionCaracteristicas();
                 break;
-                case 3: definicionEspecificaciones();
+                case 3: //definicionEspecificaciones();
                 break;
-                case 4: definicionCaracEspecificacionesProductos();
+                case 4: //definicionCaracEspecificacionesProductos();
                 break;
-                case 5: altaProductos();
+                case 5:// altaProductos();
             }
         } // cierre de la gestion de productos
-        static void definicionCategorias(){ // abre 
-            Scanner scan=new Scanner (System.in);
-            
-            int Opcion;
-            
-            System.out.println("CATEGORIA PRODUCTOS");
-            System.out.println("1. VER CATEGORIAS");
-            System.out.println("2. AGREGAR CATEGORIAS");
-            System.out.println("3. MODIFICAR CATEGORIAS");
-            System.out.println("4. ELIMINAR CATEGORIAS");
-            System.out.println("5. SALIR DE CATEGORIAS PRODUCTOS");
-            System.out.println("SELECCIONE LA OPCION NECESARIA");
-            Opcion= scan.nextInt();
+ private static void definicionCategorias(){ try {
+// abre
+Scanner scan=new Scanner (System.in);
 
-            switch (Opcion){
-                
-                case 1:
-                    mostrarCategorias();
-                    break;
-                case 2:
-                    agregarCategorias();
-                    break;
-                case 3:
-                    modificarCategorias();
-                    break;
-                case 4:
-                    eliminarCategorias();
-                    break;
-                case 5:{
-            }
-                default -> throw new AssertionError();
-            }
-        // para salir
-                } // Cierra Def Categorias
-        static void mostrarCategorias() throws FileNotFoundException, java.io.IOException { 
+int Opcion;
+
+System.out.println("CATEGORIA PRODUCTOS");
+System.out.println("1. VER CATEGORIAS");
+System.out.println("2. AGREGAR CATEGORIAS");
+System.out.println("3. MODIFICAR CATEGORIAS");
+System.out.println("4. ELIMINAR CATEGORIAS");
+System.out.println("5. SALIR DE CATEGORIAS PRODUCTOS");
+System.out.println("SELECCIONE LA OPCION NECESARIA");
+Opcion= scan.nextInt();
+
+switch (Opcion){
+
+case 1:
+mostrarCategorias();
+break;
+case 2:
+agregarCategoria();
+break;
+case 3:
+modificarCategoria();
+break;
+case 4:
+eliminarCategoria();
+break;
+case 5:{
+}
+default : throw new AssertionError();
+}
+// para salir
+        } catch (IOException ex) {
+            Logger.getLogger(ProyectoFinalAlgoritmos.class.getName()).log(Level.SEVERE, null, ex);
+        } // Cierra Def Categorias
+                }
+ public static void mostrarCategorias() throws FileNotFoundException, java.io.IOException { 
             System.out.println("CATEGORIAS EXISTENTES");
             try (BufferedReader br = new BufferedReader(new FileReader("categoria.txt"))){
                 String linea;
@@ -135,7 +140,7 @@ public class ProyectoFinalAlgoritmos {
                 }
             }
         }
-        static void agregarCategoria(){ // abre 
+private static void agregarCategoria(){ // abre 
             Scanner scan= new Scanner (System.in);
             System.out.print("INGRESE LA CATEGORIA NUEVA: ");
             String nombre = scan.nextLine();
@@ -143,14 +148,9 @@ public class ProyectoFinalAlgoritmos {
             if (nombre.isEmpty() || categoriaExiste(nombre)){
             System.out.println("EL NOMBRE DE LA CATEGORIA NO PUEDE ESTAR VACIO O YA EXISTE. ");
             return;
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(("categorias.txt"),true)){
-                bw.write(nombre + "|" + descripcion);
-                bw.newLine();
-                System.out.println("CATEGORIA AGREGADA EXITOSAMENTE. ");
-            } catch (IOException e) {
-                    System.out.println("ERROR AL ESCRIBIR EN EL ARCHIVO. ");
-                    }
-            } // cierra agregar
+}
+            
+                } // cierra agregar
 static boolean categoriaExiste(String nombre){ // abre
                 try(BufferedReader br= new BufferedReader(new FileReader(("categorias.txt")))) {
                 String linea;
@@ -167,7 +167,8 @@ static boolean categoriaExiste(String nombre){ // abre
                 
                 } return false;
             }// cierra
-private static void modificarCategoria (){// abre
+public static void modificarCategoria (){// abre
+File f= new File ("T");
     try {
                         FileReader fr = new FileReader(f);
                         BufferedReader br = new BufferedReader(fr);
@@ -190,33 +191,29 @@ private static void modificarCategoria (){// abre
                         bw.close();
                         br.close();
                         
-                        Files.move(fc.toPath(), categoriaExiste.toPath(), REPLACE_EXISTING);
+                      //Files.move(fc.toPath(), categoriaExiste("").toPath(), REPLACE_EXISTING);
                      } catch (FileNotFoundException ex) {
                         Logger.getLogger(ProyectoFinalAlgoritmos.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (IOException ex) {
                     Logger.getLogger(ProyectoFinalAlgoritmos.class.getName()).log(Level.SEVERE, null, ex);
                     }
 }
+          public static void eliminarCategoria(){
+        try {
+            mostrarCategorias();
+            Scanner scan = new Scanner (System.in);
             
+            System.out.print("INGRESA EL NOMBRE DE LA CATEGORIA A ELIMINAR ");
+            String nombre= scan.nextLine();
+            if (categoriaExiste(nombre)) {
+                System.out.print("LA CATEGORIA NO EXISTE ");  
+                return;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ProyectoFinalAlgoritmos.class.getName()).log(Level.SEVERE, null, ex);
         }
-private static void eliminarCategoria(){
-mostrarCategorias();
-Scanner scan = new Scanner (System.in);
-
-System.out.print("INGRESA EL NOMBRE DE LA CATEGORIA A ELIMINAR ");
-String nombre= scan.nextLine();
-if (categoriaExiste(nombre)) {
-System.out.print("LA CATEGORIA NO EXISTE ");
-return;
+          }
 }
-}
-            
-        }
-        }
-            
-                
-
-        
-    
+   
     
 
